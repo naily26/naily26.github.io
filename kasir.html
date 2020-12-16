@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Kasir</title>
+        <link rel="stylesheet" href="style.css">
+        <script
+            src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous">
+        </script>
+        <script>
+            $(function(){
+                $("#header").load("header.html"); 
+                $("#footer").load("footer.html"); 
+            });
+        </script>
+    </head>
+    <body class="bio2">
+        <header>
+            <a href="halaman1.html">Home</a>
+        <a href="biodata.html">Biodata</a>
+        <a href="profil.html">Profil</a>
+        <a href="kasir.html">Kasir</a>
+        </header>    
+         
+            <div class="ksr">
+                <article class="kasir">
+                    <div class="kasir"><h2 >Masukkan Pesanan</h2></div>
+                        
+                   <div class="ksr3">
+                    
+                    <label for="id_pembeli" >ID Pembeli</label>
+                    
+                    <input type="text" id="id_pembeli" name="id_pembeli" required><br>
+                    
+                    <label for="nama_pembeli">Nama Pembeli</label>
+                    <input type="text" id="nama_pembeli" name="nama_pembeli" required><br>
+                    <label for="status_pembeli">Status Pembeli</label><br>
+                    <input type="radio" id="status_pembeli" name="status_pembeli" value="Member" required>&nbsp;<label>Member</label><br>
+                    <input type="radio" id="status_pembeli" name="status_pembeli" value="Non Member" required>&nbsp; <label>Non Member</label><br>
+                    <label for="nama_makanan">Nama Makanan</label>
+                    <select id="nama_makanan" name="nama_makanan">
+                        <option value="Sate Ayam">Bakso Biasa (Rp. 15.000)</option>
+                        <option value="Ayam Bakar">Bakso Mercon(Rp. 30.000)</option>
+                        <option value="Sate Kambing">Bakso Beranak(Rp. 25.000)</option>
+                        <option value="Sop Buntut">Bakso Spesial(Rp. 35.000)</option><br>
+                    </select><br>
+                    <label for="jumlah">Jumlah</label>
+                    <input type="number" id="jumlah" name="jumlah" required>
+                    <button type="submit" id="submit" name="submit" class="button" onclick="form_process()">Submit</button>     
+                    <div id="hasil_submit"></div>
+                </div>
+                </article>
+            </div>
+            <footer><h3> Kasih atas Kunjungan anda<br>
+            Silahkan mencoba menu lainnya di lain waktu:)</h3><br>
+                <img src="img/bakso.jpg" width="250px" height="150px">
+                 <img src="img/baksoberanak.jpg" width="250px" height="150px">
+                 <img src="img/baksomercon.jpg" width="250px" height="150px">
+                 <img src="img/spesial.jpg" width="250px" height="150px">
+            </footer>
+            
+        
+        
+        <script>
+            var menu = ["Sate Ayam", "Sate Kambing", "Sop Kambing", "Sop Buntut"];
+            
+            function form_process() {
+                var harga_makanan = 0;
+                var diskon = 0;
+                var id_pembeli = document.getElementById('id_pembeli').value;
+                var nama_pembeli= document.getElementById('nama_pembeli').value;
+                var status_pembeli = document.querySelector('input[name = status_pembeli]:checked').value;
+                var nama_makanan = document.getElementById('nama_makanan').value;
+                var jumlah = document.getElementById('jumlah').value;
+
+                if (nama_makanan == "Sate Ayam") {
+                    harga_makanan = 15000;
+                } else if (nama_makanan == "Sate Kambing") {
+                    harga_makanan = 20000;
+                } else if (nama_makanan == "Sop Kambing") {
+                    harga_makanan = 25000;
+                } else if(nama_makanan == "Sop Buntut"){
+                    harga_makanan = 25000;
+                }
+
+                if (status_pembeli == 'Member') {
+                    if (jumlah == 1) {
+                        diskon = harga_makanan * 0.05;
+                    } else if (jumlah <= 3) {
+                        diskon = harga_makanan * 0.07;
+                    } else {
+                        diskon = harga_makanan * 0.1;
+                    }
+                } else if(status_pembeli == 'Non Member'){
+                    if (jumlah <= 3) {
+                        diskon = 0;
+                    } else if (jumlah <= 5) {
+                        diskon = (harga_makanan * jumlah) * 0.05;
+                    } else {
+                        diskon = harga_makanan * 0.05;
+                    }
+                }
+
+                total = (harga_makanan * jumlah) - diskon;
+                var par = document.createElement("h4")
+                var node = document.createTextNode(
+                    "TOTAL BAYAR : " + total
+                )
+                par.appendChild(node)
+                document.getElementById("hasil_submit").appendChild(par)
+            }
+        </script>
+    <body>
+<html>
